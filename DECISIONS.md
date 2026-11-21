@@ -52,7 +52,7 @@ A Python pseudo-terminal integration script verifies a real Git commit through t
 
 ## Compact terminal dashboard
 
-Show a compact branch, latest-commit and staging-count card when entering shell mode and after a successful normal TUI exit. `glasspane summary [PATH]` also prints it directly without raw mode, file watching, graph loading, or loading branch/history lists. It shares the HEAD and read-only status readers with the full dashboard. It honors terminal width, sanitizes control characters, clips Unicode at grapheme boundaries, and suppresses colors for redirected output and `NO_COLOR`.
+Show a compact branch, latest-commit and staging-count card when entering shell mode and after a successful normal TUI exit. `glass summary [PATH]` also prints it directly without raw mode, file watching, graph loading, or loading branch/history lists. It shares the HEAD and read-only status readers with the full dashboard. It honors terminal width, sanitizes control characters, clips Unicode at grapheme boundaries, and suppresses colors for redirected output and `NO_COLOR`.
 
 In zsh, refresh the card from a child-shell `precmd` hook after each command. Do not draw asynchronously over the command line. Use a temporary `ZDOTDIR` shim that sources the user's original `.zshenv` and `.zshrc`, restores the user's `ZDOTDIR` before their `.zshrc`, and appends the hook. Preserve the preceding command's exit status and any user-defined aliases or prompt. Remap a global-startup HISTFILE based on the temporary directory to its normal destination. The shim is removed after the child exits; no user shell files are edited. Other shells get a one-time initial summary through the helper subprocess.
 
@@ -81,7 +81,7 @@ Compare resulting HEAD after Git exits. Report old/new hashes on success, unchan
 
 ## glasspane command naming
 
-Rename the Cargo package and application branding to `glasspane`. Install both `glasspane` and the short `glass` command as thin entry points into the same library CLI implementation, so behavior cannot diverge and no shell alias is required. Keep `glasspane` as Cargo's default run target. New configuration and cwd state use the `glasspane` directory; legacy `gitpane/config.toml` remains a read-only fallback when the new config is absent. A new cwd hook removes the old callback when sourced in an existing zsh session. User shell files are never edited automatically.
+Rename the Cargo package and application branding to `glasspane`. Install `glass` as the sole command and use it as the `cargo run` target. New configuration and cwd state use the `glasspane` directory; legacy `gitpane/config.toml` remains a read-only fallback when the new config is absent. A new cwd hook removes the old callback when sourced in an existing zsh session. User shell files are never edited automatically.
 
 
 ## Launch directory takes precedence over saved cwd state

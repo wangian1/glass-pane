@@ -4,7 +4,11 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
 #[derive(Debug, Parser)]
-#[command(version, about = "Live Git dashboard with safe branch switching")]
+#[command(
+    name = "glass",
+    version,
+    about = "Live Git dashboard with safe branch switching"
+)]
 pub struct Cli {
     pub path: Option<PathBuf>,
     #[command(subcommand)]

@@ -1,6 +1,5 @@
 [package]
 name = "glasspane"
-default-run = "glasspane"
 version = "0.1.0"
 edition = "2024"
 description = "A live Git dashboard with safe branch switching and shell access"

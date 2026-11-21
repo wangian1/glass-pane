@@ -56,7 +56,7 @@ pub fn main() -> Result<()> {
     }
     if !io::stdin().is_terminal() || !io::stdout().is_terminal() {
         anyhow::bail!(
-            "glasspane needs an interactive terminal. Use --help or --print-config for noninteractive output."
+            "glass needs an interactive terminal. Use --help or --print-config for noninteractive output."
         );
     }
     let launch = cli.path.clone().unwrap_or(std::env::current_dir()?);
@@ -109,7 +109,7 @@ fn run(app: &mut App, config: Config, state_file: Option<std::path::PathBuf>) ->
                 || actions.is_finished()
                 || diff_worker.is_finished()
             {
-                anyhow::bail!("A background worker stopped unexpectedly; restart glasspane.");
+                anyhow::bail!("A background worker stopped unexpectedly; restart glass.");
             }
             for event in rx.try_iter() {
                 match event {

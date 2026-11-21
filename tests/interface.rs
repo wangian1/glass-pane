@@ -9,20 +9,14 @@ use std::{fs, process::Command as Process};
 
 #[test]
 fn cli_accepts_paths_hooks_and_overrides() {
-    let cli = Cli::try_parse_from([
-        "glasspane",
-        "/tmp/project",
-        "--no-follow",
-        "--commits",
-        "12",
-    ])
-    .unwrap();
+    let cli =
+        Cli::try_parse_from(["glass", "/tmp/project", "--no-follow", "--commits", "12"]).unwrap();
     assert_eq!(cli.path.unwrap().to_str(), Some("/tmp/project"));
     assert!(cli.no_follow);
     assert_eq!(cli.commits, Some(12));
-    let cli = Cli::try_parse_from(["glasspane", "init", "zsh"]).unwrap();
+    let cli = Cli::try_parse_from(["glass", "init", "zsh"]).unwrap();
     assert!(matches!(cli.command, Some(Command::Init { shell }) if shell == "zsh"));
-    assert!(Cli::try_parse_from(["glasspane", "init", "fish"]).is_err());
+    assert!(Cli::try_parse_from(["glass", "init", "fish"]).is_err());
 }
 
 #[test]
@@ -153,7 +147,7 @@ fn summary_cli_reports_a_repository_without_starting_a_tui() {
     let mut index = repo.index().unwrap();
     index.add_path(std::path::Path::new("file.txt")).unwrap();
     index.write().unwrap();
-    let output = Process::new(env!("CARGO_BIN_EXE_glasspane"))
+    let output = Process::new(env!("CARGO_BIN_EXE_glass"))
         .arg("summary")
         .arg(dir.path())
         .env("NO_COLOR", "1")
@@ -166,7 +160,7 @@ fn summary_cli_reports_a_repository_without_starting_a_tui() {
     assert!(text.contains("1 staged · 0 unstaged · 0 untracked · 0 conflicted"));
     assert!(!text.contains('\x1b'));
     let not_repo = tempfile::tempdir().unwrap();
-    let output = Process::new(env!("CARGO_BIN_EXE_glasspane"))
+    let output = Process::new(env!("CARGO_BIN_EXE_glass"))
         .arg("summary")
         .arg(not_repo.path())
         .output()
@@ -337,32 +331,22 @@ fn amend_review_renders_modes_files_warning_and_small_terminal_guard() {
 }
 
 #[test]
-fn full_and_short_commands_share_subcommands_and_branding() {
-    let dir = tempfile::tempdir().unwrap();
-    let repo = git2::Repository::init(dir.path()).unwrap();
-    repo.set_head("refs/heads/main").unwrap();
-    let mut summaries = vec![];
-    for binary in [env!("CARGO_BIN_EXE_glasspane"), env!("CARGO_BIN_EXE_glass")] {
-        let version = Process::new(binary).arg("--version").output().unwrap();
-        assert!(version.status.success());
-        assert!(String::from_utf8_lossy(&version.stdout).contains("glasspane 0.1.0"));
-        let help = Process::new(binary).arg("--help").output().unwrap();
-        assert!(help.status.success());
-        assert!(String::from_utf8_lossy(&help.stdout).contains("summary"));
-        let hook = Process::new(binary).args(["init", "zsh"]).output().unwrap();
-        assert!(hook.status.success());
-        assert_eq!(String::from_utf8(hook.stdout).unwrap(), cwd::ZSH_HOOK);
-        let summary = Process::new(binary)
-            .arg("summary")
-            .arg(dir.path())
-            .env("NO_COLOR", "1")
-            .output()
-            .unwrap();
-        assert!(summary.status.success());
-        assert!(String::from_utf8_lossy(&summary.stdout).contains("glasspane"));
-        summaries.push(summary.stdout);
-    }
-    assert_eq!(summaries[0], summaries[1]);
+fn glass_reports_its_command_name_and_exposes_subcommands() {
+    let binary = env!("CARGO_BIN_EXE_glass");
+    let version = Process::new(binary).arg("--version").output().unwrap();
+    assert!(version.status.success());
+    assert_eq!(
+        String::from_utf8(version.stdout).unwrap().trim(),
+        concat!("glass ", env!("CARGO_PKG_VERSION"))
+    );
+    let help = Process::new(binary).arg("--help").output().unwrap();
+    assert!(help.status.success());
+    let help = String::from_utf8(help.stdout).unwrap();
+    assert!(help.contains("Usage: glass "));
+    assert!(help.contains("summary"));
+    let hook = Process::new(binary).args(["init", "zsh"]).output().unwrap();
+    assert!(hook.status.success());
+    assert_eq!(String::from_utf8(hook.stdout).unwrap(), cwd::ZSH_HOOK);
 }
 
 #[test]

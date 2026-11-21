@@ -62,4 +62,4 @@ def run(binary):
 
 
 if __name__ == "__main__":
-    run(Path(sys.argv[1] if len(sys.argv) > 1 else "target/debug/glasspane").resolve())
+    run(Path(sys.argv[1] if len(sys.argv) > 1 else "target/debug/glass").resolve())

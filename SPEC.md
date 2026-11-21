@@ -167,7 +167,7 @@ Choose A unless it causes problems. Isolate the graph behind a trait so B can re
 ### 6.6 Current directory tracking (zsh)
 A separate TUI cannot see another shell's cwd. Solve with an opt-in zsh hook:
 
-- `glasspane init zsh` prints a snippet the user adds to `~/.zshrc`:
+- `glass init zsh` prints a snippet the user adds to `~/.zshrc`:
   ```zsh
   # glasspane cwd tracking
   _glasspane_chpwd() { print -r -- "$PWD" >| "${XDG_STATE_HOME:-$HOME/.local/state}/glasspane/cwd" }
@@ -261,15 +261,15 @@ follow_cwd = true
 show_remote_head = false
 ```
 
-CLI flags override config. `glasspane --print-config` dumps effective config.
+CLI flags override config. `glass --print-config` dumps effective config.
 
 ---
 
 ## 9. CLI
 
 ```
-glasspane [PATH]              Launch dashboard for repo at PATH (default: cwd)
-glasspane init zsh            Print zsh hook snippet for cwd tracking
+glass [PATH]                Launch dashboard for repo at PATH (default: cwd)
+glass init zsh              Print zsh hook snippet for cwd tracking
   --no-follow               Ignore the zsh cwd state file
   --commits <N>             Override commit_limit
   --print-config            Print effective config and exit

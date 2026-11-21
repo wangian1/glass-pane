@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Exercise shell handoff on a real pseudo-terminal using disposable repositories.
 
-Usage: python3 scripts/check-shell.py target/debug/glasspane
+Usage: python3 scripts/check-shell.py target/debug/glass
 Python is needed only for this integration check, not to run glasspane.
 """
 import fcntl
@@ -254,4 +254,4 @@ def run(binary):
 
 
 if __name__ == "__main__":
-    run(Path(sys.argv[1] if len(sys.argv) > 1 else "target/debug/glasspane").resolve())
+    run(Path(sys.argv[1] if len(sys.argv) > 1 else "target/debug/glass").resolve())

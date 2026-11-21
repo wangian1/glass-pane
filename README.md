@@ -14,7 +14,9 @@ On macOS, install stable Rust, Git, and the Xcode Command Line Tools (`xcode-sel
 cargo install --locked --path .
 ```
 
-Open a Git repository in your terminal and run `glass`. Cargo installs both `glass` and `glasspane`.
+Open a Git repository in your terminal and run `glass`.
+
+If you installed the older two-command version through Cargo, run `cargo install --locked --path . --force` to replace it. If your `~/.zshrc` uses the old command for directory tracking, update it to `eval "$(glass init zsh)"`.
 
 | Command | What it does |
 | --- | --- |
