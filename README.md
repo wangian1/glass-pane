@@ -1,6 +1,6 @@
 # Glasspane
 
-<img src="docs/logo.png" alt="Glasspane logo, a Git branch on a teal glass pane" width="112">
+<img src="docs/logo.png" alt="Glasspane logo, a pixel-art pane with cyan highlights" width="112">
 
 **A live Git dashboard for your terminal.** See your branch, commit history, and working tree at a glance. Stage files, review commits, and drop into your shell without leaving the current terminal.
 
