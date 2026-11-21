@@ -1,0 +1,5 @@
+*   abc1234HEAD -> mainMerge topic
+|\  
+| * def5678origin/topicTopic
+|/  
+* 012abcdInitial
