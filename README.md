@@ -57,4 +57,4 @@ cargo run -- /path/to/repo
 ./scripts/check.sh
 ```
 
-The check script runs formatting, tests, Clippy, and a release build. macOS is the primary platform. See the [user guide](docs/guide.md#limitations-and-next-steps) for platform and feature limits, [design decisions](DECISIONS.md) for architecture, and [validation notes](VALIDATION.md) for test coverage.
+The check script runs formatting, tests, Clippy, and a release build. macOS is the primary platform. See the [user guide](docs/guide.md#limitations-and-next-steps) for platform and feature limits.

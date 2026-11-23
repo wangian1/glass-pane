@@ -2,3 +2,7 @@
 *.swp
 .DS_Store
 __pycache__/
+
+/DECISIONS.md
+/SPEC.md
+/VALIDATION.md
